@@ -24,11 +24,12 @@ public extension UICollectionView {
         
         let dataSource = SkeletonCollectionDataSource(collectionViewDataSource: originalDataSource, rowHeight: 0.0)
         self.skeletonDataSource = dataSource
-        performBatchUpdates({
+        DispatchQueue.main.async {
+            self.performBatchUpdates({
             self.reloadData()
-        }) { done in
-            completion(done)
-            
+            }) { done in
+        completion(done)
+            }
         }
     }
 }
